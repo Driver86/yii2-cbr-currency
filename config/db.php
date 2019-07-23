@@ -3,7 +3,7 @@
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=app',
-    'username' => 'root',
+    'username' => 'admin',
     'password' => '',
     'charset' => 'utf8',
     //'enableSchemaCache' => true,

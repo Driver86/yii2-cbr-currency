@@ -13,27 +13,25 @@ $config = [
     ],
     'components' => [
         'request' => [
-            'cookieValidationKey' => 'fSCTdHaZvdSYzDwNnXjAIlEV2xeMrcU3',
+            'cookieValidationKey' => 'fhfggyjtyu768tjghgjygjuyi78ygkjj',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => yii\caching\FileCache::class,
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => app\models\User::class,
             'enableAutoLogin' => true,
+            'enableSession' => false,
         ],
-        'errorHandler' => [
-            'errorAction' => 'site/error',
-        ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' => true,
+        'response' => [
+            'format' => yii\web\Response::FORMAT_JSON,
+            'charset' => 'UTF-8',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -44,8 +42,9 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
-                '<action:currencies>/<page:[0-9]+>' => 'api/currency-index',
-                '<action:currency>/<id:[0-9]+>' => 'api/currency-view',
+                'GET currencies' => 'currency/index',
+                'GET currencies/<page:[0-9]+>' => 'currency/index',
+                'GET currency/<id:[0-9]+>' => 'currency/view',
             ],
         ],
     ],
@@ -55,13 +54,14 @@ $config = [
 if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-        'allowedIPs' => ['127.0.0.1', '::1'],
+        'class' => yii\debug\Module::class,
+        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
+
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
-        'allowedIPs' => ['127.0.0.1', '::1'],
+        'class' => yii\gii\Module::class,
+        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 
